@@ -85,7 +85,17 @@ body{
 }
 .stat-c .v{font-size:18px;font-weight:900;color:var(--green);font-variant-numeric:tabular-nums;}
 .stat-c .k{font-size:10px;color:var(--ink2);font-weight:700;margin-top:2px;}
-.home-foot{margin-top:auto;display:flex;gap:10px;padding-top:12px;}
+.home-scroll{
+  flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
+  padding-bottom:4px;
+  mask-image:linear-gradient(180deg,#000 calc(100% - 16px),transparent);
+  -webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 16px),transparent);
+}
+.home-foot{
+  margin-top:0;display:flex;gap:10px;padding-top:10px;padding-bottom:2px;
+  background:var(--bg);box-shadow:0 -8px 18px rgba(26,107,90,.07);
+}
+.home-foot .btn{flex:1;font-size:17px;padding:16px 8px;letter-spacing:.5px;}
 .btn{
   border:none;font-family:inherit;font-weight:800;color:#fff;border-radius:16px;cursor:pointer;
   font-size:16px;padding:14px;transition:transform .08s,box-shadow .08s;
@@ -312,6 +322,7 @@ body{
 
   <!-- 首页 -->
   <section class="screen active" id="screen-home">
+   <div class="home-scroll">
     <div class="home-head">
       <div class="seal">诗</div>
       <div class="title">诗境<em>闯关</em></div>
@@ -324,9 +335,10 @@ body{
       <div class="stat-c"><div class="v" id="stStars">0</div><div class="k">累计星星</div></div>
       <div class="stat-c"><div class="v" id="stCards">0</div><div class="k">诗词收集</div></div>
     </div>
+   </div>
     <div class="home-foot">
-      <button class="btn ghost" id="btnCollect" style="flex:0 0 104px;font-size:14px;">📜 收集册</button>
-      <button class="btn gold" id="btnReset" style="flex:0 0 104px;font-size:14px;">🔄 重来</button>
+      <button class="btn ghost" id="btnCollect">📜 收集册</button>
+      <button class="btn gold" id="btnReset">🔄 重来</button>
       <button class="btn" id="btnQuick">随机挑战</button>
     </div>
   </section>
@@ -989,7 +1001,7 @@ $('#btnResHome').onclick = ()=>{
 $('#btnNextLv').onclick = ()=>{ S.lv++; startLevel(S.stage, S.lv); };
 document.addEventListener('touchstart', function once(){ ac(); document.removeEventListener('touchstart', once); }, {passive:true});
 document.addEventListener('touchmove', function(e){
-  if(!e.target.closest('.level-wrap,.result-wrap,.coll-wrap')) e.preventDefault();
+  if(!e.target.closest('.level-wrap,.result-wrap,.coll-wrap,.home-scroll')) e.preventDefault();
 }, {passive:false});
 
 renderHome();
